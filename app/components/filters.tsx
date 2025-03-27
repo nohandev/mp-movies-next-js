@@ -6,7 +6,6 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectLabel
 } from '@/components/ui/select'
 import { itemSelectSchema } from '@/lib/definitions'
 
@@ -72,7 +71,7 @@ function FilterByGender() {
 
   const ItemsSelect = [
     { value: 'all', title: 'Todos' },
-    { value: 'felame', title: 'Feminino' },
+    { value: 'female', title: 'Feminino' },
     { value: 'male', title: 'Masculino' },
     { value: 'genderless', title: 'Sem Gênero' },
     { value: 'unknown', title: 'Desconhecido' }

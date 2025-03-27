@@ -22,3 +22,10 @@ export type CharacterSchema = {
   url:string
   created:string
 }
+
+export type ParamsSchema = {
+  species?: string
+  gender?: string
+  search?: string
+  status?: string
+}

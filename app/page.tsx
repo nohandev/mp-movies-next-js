@@ -1,27 +1,32 @@
 import Logo from '@/app/components/ui/logo'
 import Search from '@/app/components/search'
-import { FilterByGender, FilterBySpecies, FilterByStatus } from '@/app/components/filters'
+import CardWrapperSkeleton from '@/app/components/ui/skeletons'
 import  CardWrapper  from '@/app/components/ui/cardWapper'
-import { fetchAllCharacters } from '@/lib/data'
+import { FilterByGender, FilterBySpecies, FilterByStatus } from '@/app/components/filters'
+import { ParamsSchema } from '@/lib/definitions'
+import { Suspense } from 'react'
 
-export default async function Home() {
 
-  const data = await fetchAllCharacters()
+export default async function Page({
+  searchParams
+}: {
+  searchParams:Promise<ParamsSchema>
+}) {
 
-  const results = data.results
-
+  const queryparams = await searchParams
+  
   return (
     <main>
       <Logo/>
-
       <section className='max-w-[1440px] mx-auto px-6 flex flex-col gap-4 justify-center items-center sm:grid sm:grid-cols-4'>
         <Search/>
         <FilterBySpecies/>
         <FilterByGender/>
         <FilterByStatus/>
       </section>
-
-      <CardWrapper data={results}/>
+      <Suspense fallback={<CardWrapperSkeleton/>}>
+        <CardWrapper queryParams={queryparams}/>
+      </Suspense>
     </main>
   );
 }
