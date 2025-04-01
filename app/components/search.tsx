@@ -2,7 +2,7 @@
 
 import { Input } from '@/components/ui/input'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
-import { useDebouncedCallback } from 'use-debounce'
+
 
 
 
@@ -11,27 +11,27 @@ export default function Search() {
   const pathname = usePathname()
   const searchparams = useSearchParams()
   
-  const handleChange = useDebouncedCallback(
-    (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const inputValue = e.target as HTMLFormElement
     const params = new URLSearchParams(searchparams)
     
-    if(e.target.value) {
-      params.set('name', e.target.value)
+    if(inputValue.search.value) {
+      params.set('name', inputValue.search.value)
     } else {
       params.delete('name')
     }
 
     replace(`${pathname}?${params.toString()}`, {scroll:false})
-  }, 1300
-)
-
+  }
   return (
-    <div className=' w-full'>
+    <form className=' w-full' onSubmit={handleSubmit}>
       <Input
-      onChange={handleChange}
       type='search'
+      name='search'
       placeholder='Search by name'
       className='text-neutral-200 w-full'/>
-    </div>
+    </form>
   )
 }

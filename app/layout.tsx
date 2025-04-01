@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { FilterByGender, FilterBySpecies, FilterByStatus } from '@/app/components/filters'
+import Logo from '@/app/components/ui/logo'
+import Search from '@/app/components/search'
 
 import "./globals.css";
 
@@ -15,7 +18,16 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className='bg-black'>
+        <main>
+        <Logo/>
+        <section className='max-w-[1440px] mx-auto px-6 flex flex-col gap-4 justify-center items-center sm:grid sm:grid-cols-4'>
+          <Search/>
+          <FilterBySpecies/>
+          <FilterByGender/>
+          <FilterByStatus/>
+        </section>
         {children}
+      </main>
       </body>
     </html>
   );

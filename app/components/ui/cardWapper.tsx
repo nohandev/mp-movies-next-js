@@ -5,11 +5,17 @@ import { ParamsSchema } from '@/lib/definitions'
 
 export default async function CardWrapper(queryparams:{queryParams:ParamsSchema}) {
 
-  const { results } = await fetchCharacters(queryparams.queryParams)
+  const data = await fetchCharacters(queryparams.queryParams)
+
+  if (!Object.entries(data).length) {
+    return (
+      <h1 className='text-white text-center mt-8 font-[700] text-[clamp(22px,1.5vw,28px)]'>Não foi possível encontrar esse personagem</h1>
+    )
+  }
 
   return (
     <section className='w-full max-w-[1440] mx-auto p-6 flex flex-col gap-4 items-center sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4'>
-      {results.map((character: CharacterSchema) => (
+      {data.results.map((character: CharacterSchema) => (
         <div key={character.id} className='border border-white rounded-lg w-full'>
         <div className='overflow-hidden'>
           <Image
